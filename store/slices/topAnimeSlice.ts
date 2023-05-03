@@ -4,20 +4,19 @@ import axios from "axios";
 
 const createTopAninmeSlice: StateCreator<TopAnimeTypes> = (set) => ({
   topAnimeList: [],
-  loading: false,
+  topAnimeLoading: false,
   fetchTopAnime: async () => {
-    set({ loading: true });
+    set({ topAnimeLoading: true });
     try {
-      const response = await axios.get(
-        "https://api.consumet.org/anime/gogoanime/top-airing"
+      const topAnimeResponse = await axios.get(
+        "https://api.jikan.moe/v4/top/anime?filter=airing"
       );
-      const data = response.data;
-      const response2 = await axios.get(`https://api.jikan.moe/v4/anime?q=${data.title}`)
-      
-      set({ topAnimeList: data.results, loading: false });
+      const topData = topAnimeResponse.data.data;
+      console.log(topData);
+      set({ topAnimeList: topData, topAnimeLoading: false });
     } catch (error) {
       console.error(error);
-      set({ loading: false });
+      set({ topAnimeLoading: false });
     }
   },
 });
