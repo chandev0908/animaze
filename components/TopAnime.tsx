@@ -2,32 +2,34 @@ import { animeStore } from "./../store/animeStore";
 import { useEffect } from "react";
 
 export default function TopAnime() {
-  const { animeList, loading, fetchTopAnime } = animeStore();
+  const { topAnimeList, topAnimeLoading, fetchTopAnime } = animeStore();
 
   useEffect(() => {
     fetchTopAnime();
   }, []);
 
-  return !loading ? (
-    <div className="main m-auto">
-      <div className="grid grid-flow-row gap-6 text-white p-3 m-3 bg-[#2D3148]">
-        {animeList.slice(0, 10).map((anime) => (
+  return !topAnimeLoading ? (
+    <div className="main w-11/12 md:max-w-[400px]">
+      <div className="w-fit grid grid-flow-row gap-2 text-white px-2 pb-6 bg-[#2D3148] md:rounded-md">
+        <h1 className="text-lg font-normal p-2">Top Anime</h1>
+        {topAnimeList.slice(0, 5).map((anime, index) => (
           <div
-            className="anime-card h-auto shadow-2xl text-center cursor-pointer max-w-[13rem] md:max-w-[13rem] transition-all duration-300 hover:bg-[#2D3148] rounded-lg"
-            key={anime.id}
+            className="anime-card w-full shadow-2xl text-center cursor-pointer transition-all duration-300 hover:bg-[#2D3148] rounded-lg relative"
+            key={anime.mal_id}
           >
             <img
-              src={anime.image}
+              src={anime.trailer.images.maximum_image_url}
               alt={anime.title}
-              className="h-4/5 w-full rounded-t-lg"
+              className="w-fit relative z-20"
             />
-            <h3 className="text-sm truncate px-3">{anime.title}</h3>
+            <div className="z-50 filter absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent opacity-40 hover:opacity-0"></div>
+            <h1 className="text-left absolute bottom-6 left-0 z-50 text-base font-medium"><span className="p-6 mr-1 bg-gray-55">{index+1}</span>{anime.title.slice(0,30)}</h1>
           </div>
         ))}
       </div>
     </div>
   ) : (
-    <div className="grid place-content-center h-5/6 z-50">
+    <div className="grid justify-start items-start h-5/6 z-50">
       <svg className="inline-block animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-cyan-500"></svg>
     </div>
   );
