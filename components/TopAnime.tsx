@@ -9,7 +9,7 @@ export default function TopAnime() {
   }, []);
 
   return !topAnimeLoading ? (
-    <div className="main w-11/12 md:max-w-[400px]">
+    <div className="main w-11/12 md:max-w-[450px]">
       <div className="w-fit grid grid-flow-row gap-2 text-white px-2 pb-6 bg-[#2D3148] md:rounded-md">
         <h1 className="text-lg font-normal p-2">Top Anime</h1>
         {topAnimeList.slice(0, 5).map((anime, index) => (
@@ -23,7 +23,7 @@ export default function TopAnime() {
               className="w-fit relative z-20"
             />
             <div className="z-50 filter absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent opacity-40 hover:opacity-0"></div>
-            <h1 className="text-left absolute bottom-6 left-0 z-50 text-base font-medium"><span className="p-6 mr-1 bg-gray-55">{index+1}</span>{anime.title.slice(0,30)}</h1>
+            <h1 className="text-left absolute bottom-6 left-0 z-50 text-base font-medium"><span className="p-6 mr-1 bg-gray-55">{index+1}</span>{anime.title.slice(0,29)}</h1>
           </div>
         ))}
       </div>
